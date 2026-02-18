@@ -22,7 +22,6 @@ This file defines:
 
 You **must configure `DATASET_CONFIGS` and `EXPERIMENT_SOURCES` before running the framework**.
 
----
 
 ### 1️⃣ Configure `DATASET_CONFIGS`
 
@@ -85,7 +84,6 @@ This framework integrates:
 
 The optimization process iteratively updates anonymization strategies based on machine learning performance, forming a closed-loop mechanism.
 
----
 
 ### 3️⃣ Configure `ML_models`
 After importing the dataset you want to work with, you must specify the machine learning model(s) to be evaluated within the framework.
@@ -129,7 +127,9 @@ PSO searches for the optimal anonymization strategy by iteratively updating cand
 The PSO algorithm in this framework operates in **three phases**:
 
 |------------------|----------------------------|------------------|
+      
       Phase 1                 Phase 2                  Phase 3
+    
     Warmup (20%)           Adaptive (60%)        Exploitation (20%)
 
 The total number of iterations is divided according to:
@@ -138,7 +138,6 @@ The total number of iterations is divided according to:
 - `adaptive_ratio`
 - Remaining iterations are assigned to the exploitation phase.
 
----
 
 ### 🟦 Phase 1 — Warmup
 
@@ -149,7 +148,6 @@ The total number of iterations is divided according to:
 Controlled by:
 - `warmup_ratio`
 
----
 
 ### 🟨 Phase 2 — Adaptive
 
@@ -164,7 +162,6 @@ Controlled by:
 - `epsilon_phase2`
 - `ratio_threshold`
 
----
 
 ### 🟥 Phase 3 — Exploitation
 
