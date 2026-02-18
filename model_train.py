@@ -26,65 +26,6 @@ from sklearn.base import clone
 
 from constants import *
 
-# Baseline model training with bootstrap
-
-def get_dataset_config(df, dataset_name):
-    if dataset_name == "Adult":
-        target = "income_ >50K"
-        drop_cols = [target] if df.shape[1] == 97 else [target, "cluster"]
-
-    elif dataset_name == "German_credit":
-        target = "credit_risk_good"
-        drop_cols = [target] if df.shape[1] == 49 else [target, "cluster"]
-
-    elif dataset_name == "Sepsis":
-        target = "SepsisFlag"
-        drop_cols = (
-            [target, "PatientIdentifier"]
-            if df.shape[1] == 117
-            else [target, "PatientIdentifier", "cluster"]
-        )
-
-    return target, drop_cols
-
-def compute_loss(model, X_test, y_test):
-    """
-    Returns scalar loss value.
-    """
-
-    if hasattr(model, "predict_proba"):
-        y_score = model.predict_proba(X_test)[:, 1]
-        return log_loss(y_test, y_score)
-
-    elif hasattr(model, "decision_function"):
-        y_score = model.decision_function(X_test)
-        return hinge_loss(y_test, y_score)
-
-    else:
-        raise ValueError("Model must support predict_proba or decision_function")
-    
-def train_model_bootstrap(
-    df, dataset_name, model, n_bootstrap, test_size=0.2
-):
-    target, drop_cols = get_dataset_config(df, dataset_name)
-    X = df.drop(columns=drop_cols)
-    y = df[target]
-
-    losses = []
-
-    for i in range(n_bootstrap):
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=test_size, random_state=i
-        )
-
-        model.fit(X_train, y_train)
-        loss = compute_loss(model, X_test, y_test)
-        losses.append(loss)
-
-    return losses
-
-#############################################################################################################
-
 
 def _bootstrap_loss_QIs(
     X,
@@ -129,9 +70,7 @@ def train_model_bootstrap_QIs(
 ):
     # Target
     target_map = {
-        "Adult": ("income", {"<=50K": 0, ">50K": 1}),
-        "German_credit": ("credit_risk", {"bad": 0, "good": 1}),
-        "Sepsis": ("SepsisFlag", None),
+        "Data_name": ("target_variable_in_ML", {"value1": 0, "value2": 1})
     }
 
     target, mapping = target_map[dataset_name]
