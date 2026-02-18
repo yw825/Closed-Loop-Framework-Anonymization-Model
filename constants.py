@@ -37,7 +37,7 @@ DATASET_CONFIGS = {
         "CQIs": ["cqi1"], # Categorical Quasi-Identifiers
         "SAs": ["sa1"], # Sensitive Attributes
         "n_cluster": [2], # number of clusters that the anonymized data will have
-        "l": 2 # If the sensitive attributes have more that 2 distinct values, set l to 2, otherwise set l to 1 < l < 2
+        "l": 2 # If the sensitive attributes have more than 2 distinct values, set l to 2, otherwise set l to 1 < l < 2
     }
 }
 
