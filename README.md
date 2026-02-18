@@ -188,5 +188,81 @@ The swarm size is reduced, and stricter convergence criteria are applied to refi
 - **`time_budget`** 
   Limits total optimization runtime (in seconds).
 
+### 5️⃣ Configure `ANON_PARAMETERS`
+
+`ANON_PARAMETERS` defines the hyperparameters governing the anonymization strategy and privacy constraint handling.
+
+The framework incorporates a dynamic penalty mechanism to control privacy violations during optimization.  
+Instead of enforcing strict feasibility from the beginning, the algorithm gradually tightens the violation tolerance as iterations progress.
+
+- **`gamma`**  
+  Controls the relative weighting between numeric and categorical QIs during anonymization.  
+
+  - `gamma = 1` (default): numeric and categorical QIs are equally weighted.  
+  - If the dataset contains only numeric QIs, set `gamma = 0`.
+
+- **`k`**  
+  Minimum cluster size used to enforce *k*-anonymity.  
+  Each cluster must contain at least *k* records.
+
+- **`initial_violation_threshold`**  
+  Initial tolerance level for privacy violations.  
+  Allows temporary constraint violations in early iterations to encourage broader exploration of the solution space.
+
+- **`violation_decay_rate`**  
+  Rate at which the violation threshold decreases over iterations.  
+  Gradually shifts the optimization from relaxed constraint enforcement to stricter privacy compliance.
+
+- **`penalty_weight`**  
+  Weight applied to excess violations when computing the final fitness value.  
+  Determines how strongly privacy violations influence the optimization objective.
+
+- **`aggregate_function`**  
+  Specifies how machine learning performance is aggregated across multiple runs.  
+
+  Since the framework evaluates each machine learning multiple times (e.g., via bootstrapping), performance results may vary due to randomness.  
+  This parameter controls how these results are combined:
+
+  - `"mean"` (default): uses the average performance across runs (recommended for robustness).
+  - `"max"`: uses the worst-case (maximum loss) performance across runs.
+
+### 6️⃣ Run the Closed-Loop Framework
+
+The main entry point for executing the closed-loop framework is `run_single_experiment`. This function is implemented in `particle_swarm.py`.
+
+Inside `run_single_experiment`, the key component to configure is `experiment_runner`. This determines which variant of the framework will be executed. Available options include:
+
+- `run_particle_swarm_experiment_QIs`
+- `run_particle_swarm_experiment_with_repairing`
+- `run_particle_swarm_experiment_without_repairing`
+
+Each option corresponds to a different experimental design of the closed-loop framework.
+
+#### 🔹 What Is a “Single Experiment”?
+
+A *single experiment* refers to:
+
+> One full execution of the framework under a fixed set of parameter settings.
+
+The output of a single experiment is:
+- One optimized solution
+- One anonymized dataset corresponding to those parameters
+
+#### 🔹 Why Run Multiple Times?
+
+Due to the stochastic nature of:
+- Particle Swarm Optimization (PSO)
+- Machine learning model training
+
+The results may vary across runs even with identical parameter settings.
+
+To obtain more reliable and stable results, we recommend running multiple repetitions of the same experiment.
+
+By default, the framework runs 10 repetitions. This means:
+- You will obtain 10 anonymized datasets
+- All generated under the same parameter configuration
+- Allowing for statistical evaluation and robustness analysis
+
+
 ## Contact
 For questions or collaborations, please contact [yw825@drexel.edu].
