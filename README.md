@@ -24,7 +24,7 @@ You **must configure `DATASET_CONFIGS` and `EXPERIMENT_SOURCES` before running t
 
 ---
 
-## 1️⃣ Configure `DATASET_CONFIGS`
+### 1️⃣ Configure `DATASET_CONFIGS`
 
 `DATASET_CONFIGS` is a dictionary that specifies all datasets used in the closed-loop framework.
 
@@ -35,13 +35,13 @@ You may include **one or multiple datasets**. Each dataset is defined as a dicti
 - **`path`**  
   Path to the dataset file.
 
-- **`numeric_qis`**  
+- **`NQIs`**  
   List of numeric quasi-identifiers (QIs).
 
-- **`categorical_qis`**  
+- **`CQIs`**  
   List of categorical quasi-identifiers (QIs).
 
-- **`sensitive_attributes`**  
+- **`SAs`**  
   List of sensitive attributes (SAs).
 
 - **`n_clusters`**  
@@ -62,23 +62,19 @@ You may include **one or multiple datasets**. Each dataset is defined as a dicti
     1 < l < 2
     ```
 
----
+### 2️⃣ Configure `EXPERIMENT_SOURCES`
 
-### Example
+`EXPERIMENT_SOURCES` defines where experiment results will be saved.
 
-```python
-DATASET_CONFIGS = {
-    "dataset_name": {
-        "path": "data/dataset.csv",
-        "numeric_qis": ["age", "income"],
-        "categorical_qis": ["gender", "zipcode"],
-        "sensitive_attributes": ["disease"],
-        "n_clusters": [2, 3, 4],
-        "l": 2
-    }
-}
+You must:
+  - Define a base directory for storing results.
+  - Define different experiment modes if needed.
 
-In EXPERIMENT_SOURCES, you have to define the base path for the folder you want to save all the results. Since we designed different types of experiments to run framework (closed-loop with repairing process, closed-loop without repairing process), you can add multiple experiments in it.
+The framework supports multiple experiment types, such as:
+  - Closed-loop framework with repairing process
+  - Closed-loop framework without repairing process
+
+You can configure multiple experiment sources accordingly.
 
 
 ## Contact
