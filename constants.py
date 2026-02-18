@@ -31,58 +31,22 @@ import particle_swarm
 
 
 DATASET_CONFIGS = {
-    "German_credit": {
-        "path": "/Users/yusiwei/Library/CloudStorage/OneDrive-Personal/research/Third Year Paper/experiments/German Credit dataset.csv",
-        "NQIs": ["age"],
-        "CQIs": ["personal_status", "job"],
-        "SAs": ["checking_status", "savings_status"],
-        "n_cluster": [10, 15, 20, 25, 30, 35, 40, 45, 50], # 10, 15, 20, 25, 30, 35, 40, 45, 50
-        "l": 2
-    },
-
-    "Adult": {
-        "path": "/Users/yusiwei/Library/CloudStorage/OneDrive-Personal/research/Third Year Paper/experiments/adult.csv",
-        "NQIs": ["age"],
-        "CQIs": ["race", "sex", "marital_status"],
-        "SAs": ["occupation"],
-        "n_cluster": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100], # 10, 20, 30, 40, 50, 60, 70, 80, 90, 100
-        "l": 2
-    },
-
-    "Sepsis": {
-        "path": "/Users/yusiwei/Library/CloudStorage/OneDrive-Personal/research/Third Year Paper/experiments/PSM-SepsisPatient.csv",
-        "NQIs": ["AgeCategory", "LOSDays", "NumberofVisits"],
-        "CQIs": ["GenderDescription", "RaceDescription", "EthnicGroupDescription"],
-        "SAs": [
-            "HX_AIDS", "HX_ALCOHOL", "HX_ANEMDEF", "HX_ARTH", "HX_BLDLOSS",
-            "HX_CHF", "HX_CAD", "HX_CHRNLUNG", "HX_COAG", "HX_DEPRESS",
-            "HX_DM", "HX_DMCX", "HX_DRUG", "HX_HTN", "HX_HYPOTHY",
-            "HX_LIVER", "HX_LYMPH", "HX_LYTES", "HX_METS", "HX_NEURO",
-            "HX_OBESE", "HX_PARA", "HX_PERIVASC", "HX_PSYCH", "HX_PULMCIRC",
-            "HX_RENLFAIL", "HX_TUMOR", "HX_ULCER", "HX_VALVE", "HX_WGHTLOSS"
-        ],
-        "n_cluster": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100], # 10, 20, 30, 40, 50, 60, 70, 80, 90, 100
-        "l": 1.5
+    "Data_name": {
+        "path": "path you save the dataset.csv",
+        "NQIs": ["nqi1"],
+        "CQIs": ["cqi1"],
+        "SAs": ["sa1"],
+        "n_cluster": [2], # number of clusters that the anonymized data will have
+        "l": 2 # If the sensitive attributes have more that 2 distinct values, set l to 2, otherwise set l to 1 < l < 2
     }
 }
 
 DATASET_NAMES = list(DATASET_CONFIGS.keys())
 
 EXPERIMENT_SOURCES = {
-    "BASELINE": {
-        "type": "csv",
-        "path_key": "path"  # from DATASET_CONFIGS
-    },
-    "MO-OBAM": {
+# This is where you want to save the results of the experiments, you can change the path to your own path
+    "CLOSED_LOOP": {
         "type": "folder",
-        "base_path": "/Users/yusiwei/Library/CloudStorage/OneDrive-Personal/research/Fourth Year Paper/Experiments/4th Experiments/2 MO-OBAM Experiments"
-    },
-    "CLOSED_LOOP_WITH_REPAIR": {
-        "type": "folder",
-        "base_path": "/Users/yusiwei/Library/CloudStorage/OneDrive-Personal/research/Fourth Year Paper/Experiments/4th Experiments/3 Closed-Loop Experiments/With Repairing Process"
-    },
-    "CLOSED_LOOP_WITHOUT_REPAIR": {
-        "type": "folder",
-        "base_path": "/Users/yusiwei/Library/CloudStorage/OneDrive-Personal/research/Fourth Year Paper/Experiments/4th Experiments/3 Closed-Loop Experiments/Without Repairing Process"
+        "base_path": "Your path to save the results of the experiments/closed_loop/"
     }
 }
