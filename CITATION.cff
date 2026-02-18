@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this closed-loop anonymization framework in your research, please cite it as follows."
+authors:
+  - family-names: Wei
+    given-names: Yusi
+    affiliation: "Drexel University"
+title: "A Closed-Loop Framework for Data Anonymization in Machine Learning Applications"
+version: 1.0.0
+date-released: 2026-02-17
+url:: "https://github.com/yw825/Closed-Loop-Framework-Anonymization-Model"
