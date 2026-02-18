@@ -29,8 +29,6 @@ You **must configure `DATASET_CONFIGS` and `EXPERIMENT_SOURCES` before running t
 
 You may include **one or multiple datasets**. Each dataset is defined as a dictionary containing the following fields:
 
-### Required Fields
-
 - **`path`**  
   Path to the dataset file.
 
@@ -126,11 +124,11 @@ PSO searches for the optimal anonymization strategy by iteratively updating cand
 
 The PSO algorithm in this framework operates in **three phases**:
 
-|------------------|----------------------------|------------------|
-      
-      Phase 1                 Phase 2                  Phase 3
-    
-    Warmup (20%)           Adaptive (60%)        Exploitation (20%)
+| Phase | Name          | Iteration Ratio | Purpose |
+|-------|---------------|-----------------|----------|
+| 1     | Warmup        | 20%             | Global exploration |
+| 2     | Adaptive      | 60%             | Particle reduction + adaptive refinement |
+| 3     | Exploitation  | 20%             | Fine-tuning near best solution |
 
 The total number of iterations is divided according to:
 
@@ -139,45 +137,56 @@ The total number of iterations is divided according to:
 - Remaining iterations are assigned to the exploitation phase.
 
 
-### 🟦 Phase 1 — Warmup
+#### Phase 1 (Warmup Phase) Parameters
 
-- Focus: Global exploration
-- Uses full particle population
-- Encourages diversity of candidate solutions
+During the warmup phase, the algorithm emphasizes global exploration using the full particle population.  
+This phase encourages diversity in candidate solutions before any adaptive reduction is applied.
 
-Controlled by:
-- `warmup_ratio`
-
-
-### 🟨 Phase 2 — Adaptive
-
-- Focus: Balanced exploration and refinement
-- Gradually reduces particles
-- Stops early if improvement stagnates
-
-Controlled by:
-- `keep_ratio`
-- `elite_ratio`
-- `patience_phase2`
-- `epsilon_phase2`
-- `ratio_threshold`
+- **`warmup_ratio`**  
+  Proportion of total iterations allocated to the warmup phase.  
+  Determines how long the algorithm focuses on broad exploration before transitioning to adaptive refinement.
 
 
-### 🟥 Phase 3 — Exploitation
+#### Phase 2 (Adaptive Phase) Parameters
 
-- Focus: Fine-tuning near best solution
-- Uses elite particles only
-- Stricter convergence criteria
+During the adaptive phase, the algorithm gradually reduces the swarm size and monitors convergence.
 
-Controlled by:
-- `patience_phase3`
-- `epsilon_phase3`
+- **`keep_ratio`**  
+  Proportion of particles retained after reduction.  
+  Controls how aggressively the swarm size decreases.
 
----
+- **`elite_ratio`**  
+  Proportion of top-performing particles preserved as elite solutions.  
+  Ensures high-quality candidates are retained for further refinement.
 
-### ⏱ Runtime Constraint
+- **`patience_phase2`**  
+  Number of consecutive iterations allowed without significant improvement before triggering adaptation or early stopping.
 
-- `time_budget` limits total optimization runtime (in seconds).
+- **`epsilon_phase2`**  
+  Minimum improvement threshold required to consider progress meaningful.  
+  If improvement is smaller than this value, it is treated as stagnation.
+
+- **`ratio_threshold`**  
+  Threshold used to determine whether population reduction should occur.  
+  Helps balance exploration and convergence speed.
+
+
+#### Phase 3 (Exploitation Phase) Parameters
+
+During the exploitation phase, the algorithm focuses on fine-tuning the best-performing solutions.  
+The swarm size is reduced, and stricter convergence criteria are applied to refine the search near the current optimum.
+
+- **`patience_phase3`**  
+  Number of consecutive iterations allowed without significant improvement before stopping the optimization in this phase.
+
+- **`epsilon_phase3`**  
+  Minimum improvement threshold required to consider progress meaningful.  
+  Smaller values enforce stricter convergence toward the final solution.
+
+#### Runtime Constraint
+
+- **`time_budget`** 
+  Limits total optimization runtime (in seconds).
 
 ## Contact
 For questions or collaborations, please contact [yw825@drexel.edu].
