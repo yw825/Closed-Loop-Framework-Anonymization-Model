@@ -33,9 +33,9 @@ import particle_swarm
 DATASET_CONFIGS = {
     "Data_name": {
         "path": "path you save the dataset.csv",
-        "NQIs": ["nqi1"],
-        "CQIs": ["cqi1"],
-        "SAs": ["sa1"],
+        "NQIs": ["nqi1"], # Numeric Quasi-Identifiers
+        "CQIs": ["cqi1"], # Categorical Quasi-Identifiers
+        "SAs": ["sa1"], # Sensitive Attributes
         "n_cluster": [2], # number of clusters that the anonymized data will have
         "l": 2 # If the sensitive attributes have more that 2 distinct values, set l to 2, otherwise set l to 1 < l < 2
     }
