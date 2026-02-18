@@ -137,7 +137,7 @@ The total number of iterations is divided according to:
 - Remaining iterations are assigned to the exploitation phase.
 
 
-#### Phase 1 (Warmup Phase) Parameters
+#### 🌍 Phase 1 (Warmup Phase) Parameters
 
 During the warmup phase, the algorithm emphasizes global exploration using the full particle population.  
 This phase encourages diversity in candidate solutions before any adaptive reduction is applied.
@@ -147,7 +147,7 @@ This phase encourages diversity in candidate solutions before any adaptive reduc
   Determines how long the algorithm focuses on broad exploration before transitioning to adaptive refinement.
 
 
-#### Phase 2 (Adaptive Phase) Parameters
+#### ⚙️ Phase 2 (Adaptive Phase) Parameters
 
 During the adaptive phase, the algorithm gradually reduces the swarm size and monitors convergence.
 
@@ -171,7 +171,7 @@ During the adaptive phase, the algorithm gradually reduces the swarm size and mo
   Helps balance exploration and convergence speed.
 
 
-#### Phase 3 (Exploitation Phase) Parameters
+#### 🎯 Phase 3 (Exploitation Phase) Parameters
 
 During the exploitation phase, the algorithm focuses on fine-tuning the best-performing solutions.  
 The swarm size is reduced, and stricter convergence criteria are applied to refine the search near the current optimum.
@@ -183,7 +183,7 @@ The swarm size is reduced, and stricter convergence criteria are applied to refi
   Minimum improvement threshold required to consider progress meaningful.  
   Smaller values enforce stricter convergence toward the final solution.
 
-#### Runtime Constraint
+#### ⏱️ Runtime Constraint
 
 - **`time_budget`** 
   Limits total optimization runtime (in seconds).
